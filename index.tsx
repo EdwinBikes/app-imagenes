@@ -56,20 +56,20 @@ imageUpload.addEventListener('change', async (event) => {
         reader.readAsDataURL(file);
     } catch (error) {
         console.error('Error reading file:', error);
-        alert('Could not read the selected file. Please try another image.');
+        alert('No se pudo leer el archivo seleccionado. Por favor, intenta con otra imagen.');
     }
 });
 
 // Event listener for the edit button
 editButton.addEventListener('click', async () => {
     if (!imageBase64 || !imageMimeType) {
-        alert('Please upload an image first.');
+        alert('Por favor, sube una imagen primero.');
         return;
     }
 
     const prompt = promptInput.value;
     if (!prompt.trim()) {
-        alert('Please enter an editing prompt.');
+        alert('Por favor, ingresa una instrucción de edición.');
         return;
     }
 
@@ -79,13 +79,13 @@ editButton.addEventListener('click', async () => {
 // Event listener for the download button
 downloadButton.addEventListener('click', () => {
     if (!editedImageSrc) {
-        alert('No edited image to download.');
+        alert('No hay imagen editada para descargar.');
         return;
     }
 
     const a = document.createElement('a');
     a.href = editedImageSrc;
-    a.download = 'edited-image.png'; // Propose a filename for the download
+    a.download = 'imagen-editada.png'; // Propose a filename for the download
     document.body.appendChild(a); // Append to body to ensure it's clickable
     a.click();
     document.body.removeChild(a); // Clean up the temporary link
@@ -152,15 +152,15 @@ async function callGemini(prompt: string, base64Data: string, mimeType: string) 
                 }
             }
             if (!foundContent) {
-                displayError('The model did not return any editable content.');
+                displayError('El modelo no devolvió ningún contenido editable.');
             }
         } else {
-            displayError('No response from the model. Please try again.');
+            displayError('No hubo respuesta del modelo. Por favor, inténtalo de nuevo.');
         }
 
     } catch (error) {
         console.error("Error calling Gemini API:", error);
-        displayError('An error occurred. Please check the console for details.');
+        displayError('Ocurrió un error. Por favor, revisa la consola para más detalles.');
     } finally {
         loader.classList.add('hidden');
         editButton.disabled = false;
